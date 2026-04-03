@@ -17,7 +17,6 @@ body {
   padding: 20px;
 }
 
-/* Контейнеры */
 .container {
   background: white;
   padding: 24px;
@@ -26,7 +25,6 @@ body {
   border: 1px solid #f1f5f9;
 }
 
-/* Заголовки */
 h1 {
   font-size: 24px;
   font-weight: 700;
@@ -34,7 +32,6 @@ h1 {
   letter-spacing: -0.5px;
 }
 
-/* Кнопки */
 .btn {
   padding: 8px 16px;
   border-radius: 8px;
@@ -67,7 +64,6 @@ h1 {
   background: #e2e8f0;
 }
 
-/* Инпуты */
 .input-field {
   width: 100%;
   padding: 10px 14px;
@@ -84,7 +80,6 @@ h1 {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-/* Карточка пользователя */
 .user-card {
   display: flex;
   align-items: center;
