@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function ItemForm({ onSubmit, editingItem, onCancel }) {
-  const [name, setName] = useState("");
-  const [teacher, setTeacher] = useState("");
-  const [type, setType] = useState("Школьный");
-
-  useEffect(() => {
-    if (editingItem) {
-      setName(editingItem.name);
-      setTeacher(editingItem.teacher);
-      setType(editingItem.type);
-    } else {
-      setName("");
-      setTeacher("");
-      setType("Школьный");
-    }
-  }, [editingItem]);
+  const [name, setName] = useState(editingItem?.name || "");
+  const [teacher, setTeacher] = useState(editingItem?.teacher || "");
+  const [type, setType] = useState(editingItem?.type || "Школьный");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !teacher) {
-      alert("Заполните все поля!");
+
       return;
     }
     onSubmit({ id: editingItem?.id, name, teacher, type });

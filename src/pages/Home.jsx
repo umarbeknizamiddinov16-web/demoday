@@ -1,21 +1,37 @@
-import { Link } from "react-router-dom";
+// Home.jsx
+import React from "react";
 
-export default function Home() {
+function Home() {
+  const cards = [
+    { title: "Users", value: 120, color: "#3b82f6" },
+    { title: "Products", value: 80, color: "#22c55e" },
+    { title: "Orders", value: 45, color: "#f59e0b" }
+  ];
+
   return (
-    <div className="container" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Добро пожаловать! 👋</h1>
-      <p style={{ color: '#666', marginBottom: '2rem', fontSize: '1.1rem' }}>
-        Это простое и удобное приложение для управления списком пользователей. 
-        Добавляйте, редактируйте и ищите нужных людей в пару кликов.
-      </p>
-      <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-        <Link to="/users" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }}>
-          Перейти к списку
-        </Link>
-        <Link to="/add" className="btn" style={{ background: '#e0e7ff', color: '#4338ca', padding: '0.8rem 2rem' }}>
-          Добавить нового
-        </Link>
+    <div>
+      <h2 style={{ marginBottom: 20 }}>Dashboard</h2>
+
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+        gap: 20
+      }}>
+        {cards.map((card) => (
+          <div key={card.title} style={{
+            background: "#1e293b",
+            padding: 20,
+            borderRadius: 12,
+            borderLeft: `5px solid ${card.color}`,
+            boxShadow: "0 4px 10px rgba(0,0,0,0.3)"
+          }}>
+            <h4 style={{ margin: 0, opacity: 0.8 }}>{card.title}</h4>
+            <p style={{ fontSize: 28, marginTop: 10 }}>{card.value}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
+
+export default Home;

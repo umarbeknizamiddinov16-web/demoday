@@ -4,6 +4,25 @@
   color: #1e293b;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.admin-panel {
+    font-family: 'Inter', sans-serif;
+}
+
 body {
   margin: 0;
   display: flex;
