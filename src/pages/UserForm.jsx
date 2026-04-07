@@ -10,9 +10,10 @@ export default function UserForm() {
     if (id) {
       fetch(`http://localhost:3001/users/${id}`)
         .then((res) => res.json())
-        .then((data) => setUser(data));
+        .then((data) => setUser(data))
+        .catch(() => navigate("/404"));
     }
-  }, [id]);
+  }, [id, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,8 +41,8 @@ export default function UserForm() {
         />
         <label>Email</label>
         <input
-          className="input-field"
           type="email"
+          className="input-field"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           required

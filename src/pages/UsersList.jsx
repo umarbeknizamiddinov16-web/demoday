@@ -8,21 +8,21 @@ export default function UsersList() {
   useEffect(() => {
     fetch("http://localhost:3001/users")
       .then((res) => res.json())
-      .then((data) => setUsers(data));
+      .then((data) => setUsers(Array.isArray(data) ? data : []))
+      .catch((err) => console.error("Ошибка загрузки:", err));
   }, []);
 
-  const filtered = users.filter((u) =>
-    u.name.toLowerCase().includes(search.toLowerCase())
+  // Добавлена проверка на существование users
+  const filtered = (users || []).filter((u) =>
+    u.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleDelete = async (id) => {
-      const ok = window.confirm("Are you sure you want to delete this user?");
-      if (ok) {
-        await fetch(`http://localhost:3001/users/${id}`, { method: "DELETE" });
-        setUsers(users.filter((u) => u.id !== id));
-      }
+    if (window.confirm("Вы уверены?")) {
+      await fetch(`http://localhost:3001/users/${id}`, { method: "DELETE" });
+      setUsers(users.filter((u) => u.id !== id));
+    }
   };
-    
 
   return (
     <div className="container">
@@ -45,10 +45,10 @@ export default function UsersList() {
               <h3>{u.name}</h3>
               <p>{u.email}</p>
             </div>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <Link to={`/users/${u.id}`} className="btn btn-secondary">Info</Link>
-              <Link to={`/edit/${u.id}`} className="btn btn-secondary" style={{color: '#b45309'}}>Edit</Link>
-              <button onClick={() => handleDelete(u.id)} className="btn btn-secondary" style={{color: '#dc2626'}}>Delete</button>
+            <div style={{ display: 'flex', gap: '12px' }}>
+              <Link to={`/users/${u.id}`} className="btn btn-secondary">Инфо</Link>
+              <Link to={`/edit/${u.id}`} className="btn btn-secondary" style={{ color: '#b45309' }}>Edit</Link>
+              <button onClick={() => handleDelete(u.id)} className="btn btn-secondary" style={{ color: '#dc2626' }}>Delete</button>
             </div>
           </div>
         ))}

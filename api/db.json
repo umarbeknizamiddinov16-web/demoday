@@ -14,6 +14,11 @@
       "name": "Jovoxir",
       "email": "jovoxir@gmail.com",
       "id": "rVA2VphISPs"
+    },
+    {
+      "name": "Umar",
+      "email": "umar@gmail.com",
+      "id": "GWuoX46kHdE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
