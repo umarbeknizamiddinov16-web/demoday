@@ -35,7 +35,6 @@ export default function AdminPanel() {
         editingItem={editingItem}
         onCancel={() => setEditingItem(null)}
       />
-
       <table border="1" cellPadding="10" style={{ marginTop: 20 }}>
         <thead>
           <tr>
