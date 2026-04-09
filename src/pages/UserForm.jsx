@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useToast } from "../ToastProvider.jsx";
 
 export default function UserForm() {
   const { t } = useTranslation();
@@ -9,6 +10,7 @@ export default function UserForm() {
   const [error, setError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToast } = useToast();
 
   useEffect(() => {
     if (id) {
@@ -36,9 +38,11 @@ export default function UserForm() {
       if (!response.ok) {
         throw new Error("Failed to save user");
       }
-
+addToast(t("userSaved"), "success");
+      
       navigate("/users");
     } catch (err) {
+      addToast(t("saveError"), "error");
       setError(t("saveError"));
     } finally {
       setLoading(false);

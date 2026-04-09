@@ -20,8 +20,8 @@ const LanguageSwitcher = () => {
       <button className="btn btn-ghost" onClick={() => changeLanguage('en')}>EN</button>
       <button className="btn btn-ghost" onClick={() => changeLanguage('ru')}>RU</button>
       <button className="btn btn-ghost" onClick={() => changeLanguage('uz')}>UZ</button>
-      <button className="btn btn-ghost" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-        {theme === 'light' ? t('darkMode') : t('lightMode')}
+      <button className="btn btn-ghost" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} title={theme === 'light' ? t('darkMode') : t('lightMode')}>
+        {theme === 'light' ? t('moonIcon') : t('sunIcon')}
       </button>
     </div>
   );
