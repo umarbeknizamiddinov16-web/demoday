@@ -54,7 +54,7 @@ export default function Login({ onLogin }) {
           </label>
           <input
             type="email"
-            placeholder="admin@example.com"
+            placeholder={t("placeholderEmail")}
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
@@ -77,16 +77,8 @@ export default function Login({ onLogin }) {
 
           <button
             type="submit"
-            style={{
-              width: "100%",
-              padding: "12px 18px",
-              borderRadius: "12px",
-              border: "none",
-              background: "#4338ca",
-              color: "#ffffff",
-              cursor: "pointer",
-              fontWeight: 600,
-            }}
+            className="btn btn-primary"
+            style={{ width: "100%", padding: "12px 18px", fontWeight: 600 }}
           >
             {t("login")}
           </button>

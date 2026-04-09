@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function UserDetail() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -20,16 +22,19 @@ export default function UserDetail() {
       .catch(() => navigate("/404"));
   }, [id, navigate]);
 
-  if (loading) return <div className="container">Загрузка данных...</div>;
+  if (loading) return <div className="container">{t("loading")}</div>;
   if (!user) return null;
 
   return (
     <div className="container">
-      <button onClick={() => navigate(-1)} style={{ background: 'none', border: 'none', color: '#4f46e5', cursor: 'pointer', marginBottom: '1rem' }}>
-        ← Назад к списку
+      <button
+        onClick={() => navigate(-1)}
+        style={{ background: 'none', border: 'none', color: '#4f46e5', cursor: 'pointer', marginBottom: '1rem' }}
+      >
+        ← {t("backToList")}
       </button>
       
-      <div style={{ borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
+      <div style={{ borderTop: '1px solid rgba(226, 232, 240, 1)', paddingTop: '1.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           <div style={{ width: '64px', height: '64px', background: '#4f46e5', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.5rem', fontWeight: 'bold' }}>
             {user.name?.[0]}
@@ -41,8 +46,8 @@ export default function UserDetail() {
         </div>
         
         <div style={{ marginTop: '2rem' }}>
-          <Link to={`/edit/${user.id}`} className="btn" style={{ background: '#fef3c7', color: '#92400e' }}>
-            Редактировать профиль
+          <Link to={`/edit/${user.id}`} className="btn btn-secondary" style={{ background: '#fef3c7', color: '#92400e' }}>
+            {t("editProfile")}
           </Link>
         </div>
       </div>

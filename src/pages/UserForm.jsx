@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function UserForm() {
+  const { t } = useTranslation();
   const [user, setUser] = useState({ name: "", email: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -17,29 +21,42 @@ export default function UserForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const method = id ? "PUT" : "POST";
-    const url = id ? `http://localhost:3001/users/${id}` : "http://localhost:3001/users";
+    setLoading(true);
+    setError("");
+    try {
+      const method = id ? "PUT" : "POST";
+      const url = id ? `http://localhost:3001/users/${id}` : "http://localhost:3001/users";
 
-    await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    });
-    navigate("/users");
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save user");
+      }
+
+      navigate("/users");
+    } catch (err) {
+      setError(t("saveError"));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="container">
-      <h2>{id ? "Редактировать профиль" : "Новый пользователь"}</h2>
+      <h2>{id ? t("editProfile") : t("newUser")}</h2>
       <form onSubmit={handleSubmit}>
-        <label>Имя</label>
+        <label>{t("name")}</label>
         <input
           className="input-field"
           value={user.name}
           onChange={(e) => setUser({ ...user, name: e.target.value })}
           required
         />
-        <label>Email</label>
+        <label>{t("email")}</label>
         <input
           type="email"
           className="input-field"
@@ -47,8 +64,18 @@ export default function UserForm() {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           required
         />
-        <button type="submit" className="btn btn-primary">Сохранить</button>
-        <button type="button" onClick={() => navigate(-1)} style={{ marginLeft: '10px', background: 'none', border: 'none', cursor: 'pointer' }}>Отмена</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? t("saving") : t("save")}
+        </button>
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="btn btn-ghost"
+          style={{ marginLeft: '10px' }}
+        >
+          {t("cancel")}
+        </button>
       </form>
     </div>
   );

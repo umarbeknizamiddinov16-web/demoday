@@ -1,9 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// the translations
-// (tip: move them in a JSON file and import them,
-// or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
   en: {
     translation: {
@@ -16,16 +13,6 @@ const resources = {
       "loginTitle": "Login to Admin Panel",
       "loginDescription": "Enter the correct email to access the admin panel.",
       "email": "Email",
-      "loginTitle": "Login to Admin Panel",
-      "loginDescription": "Enter the correct email to access the admin panel.",
-      "email": "Email",
-      "name": "Name",
-      "teacher": "Teacher/Responsible",
-      "type": "Type",
-      "actions": "Actions",
-      "edit": "Edit",
-      "delete": "Delete",
-      "confirmDelete": "Delete this item?",
       "welcome": "Welcome! 👋",
       "description": "This is a simple and convenient application for managing the list of users. Add, edit and search for the necessary people in a couple of clicks.",
       "goToList": "Go to list",
@@ -37,8 +24,34 @@ const resources = {
       "save": "Save",
       "cancel": "Cancel",
       "notFound": "Page Not Found",
+      "notFoundDescription": "Looks like you navigated to a page that does not exist.",
       "backToHome": "Back to Home",
-      "sidebar": "Sidebar"
+      "backToList": "Back to list",
+      "sidebarHome": "Home",
+      "sidebarUsers": "Users",
+      "sidebarAdd": "Add User",
+      "logout": "Logout",
+      "searchPlaceholder": "Search users...",
+      "newUser": "New User",
+      "editProfile": "Edit Profile",
+      "subjectName": "Subject name",
+      "teacherResponsible": "Teacher / Responsible",
+      "subjectType": "Type",
+      "schoolType": "School",
+      "extracurricularType": "Extracurricular",
+      "additionalType": "Additional",
+      "addSubject": "Add subject",
+      "editSubject": "Edit subject",
+      "itemsCount": "Total subjects: {{count}}",
+      "deleteConfirmation": "Are you sure you want to delete this item?",
+      "actions": "Actions",
+      "noUsers": "No users found.",
+      "loading": "Loading...",
+      "darkMode": "Dark Mode",
+      "lightMode": "Light Mode",
+      "theme": "Theme",
+      "loadError": "Failed to load users. Showing cached data.",
+      "deleteError": "Failed to delete user. Please try again.",
     }
   },
   ru: {
@@ -52,13 +65,6 @@ const resources = {
       "loginTitle": "Вход в админ-панель",
       "loginDescription": "Введите правильный email, чтобы получить доступ к панели администратора.",
       "email": "Email",
-      "name": "Название",
-      "teacher": "Учитель/Ответственный",
-      "type": "Тип",
-      "actions": "Действия",
-      "edit": "Редактировать",
-      "delete": "Удалить",
-      "confirmDelete": "Удалить этот предмет?",
       "welcome": "Добро пожаловать! 👋",
       "description": "Это простое и удобное приложение для управления списком пользователей. Добавляйте, редактируйте и ищите нужных людей в пару кликов.",
       "goToList": "Перейти к списку",
@@ -70,8 +76,34 @@ const resources = {
       "save": "Сохранить",
       "cancel": "Отмена",
       "notFound": "Страница не найдена",
+      "notFoundDescription": "Похоже, вы попали на страницу, которой не существует.",
       "backToHome": "Вернуться на главную",
-      "sidebar": "Боковая панель"
+      "backToList": "Назад к списку",
+      "sidebarHome": "Главная",
+      "sidebarUsers": "Пользователи",
+      "sidebarAdd": "Добавить пользователя",
+      "logout": "Выйти",
+      "searchPlaceholder": "Поиск по списку...",
+      "newUser": "Новый пользователь",
+      "editProfile": "Редактировать профиль",
+      "subjectName": "Название предмета",
+      "teacherResponsible": "Учитель / Ответственный",
+      "subjectType": "Тип",
+      "schoolType": "Школьный",
+      "extracurricularType": "Внеурочный",
+      "additionalType": "Дополнительный",
+      "addSubject": "Добавить предмет",
+      "editSubject": "Редактировать предмет",
+      "itemsCount": "Всего предметов: {{count}}",
+      "deleteConfirmation": "Вы уверены, что хотите удалить этот элемент?",
+      "actions": "Действия",
+      "noUsers": "Пользователи не найдены.",
+      "loading": "Загрузка...",
+      "darkMode": "Тёмная тема",
+      "lightMode": "Светлая тема",
+      "theme": "Тема",
+      "loadError": "Не удалось загрузить пользователей. Показаны кэшированные данные.",
+      "deleteError": "Не удалось удалить пользователя. Попробуйте снова.",
     }
   },
   uz: {
@@ -85,13 +117,6 @@ const resources = {
       "loginTitle": "Admin Paneliga Kirish",
       "loginDescription": "Admin paneliga kirish uchun to'g'ri emailni kiriting.",
       "email": "Email",
-      "name": "Nomi",
-      "teacher": "O'qituvchi/Mas'ul",
-      "type": "Turi",
-      "actions": "Harakarlar",
-      "edit": "Tahrirlash",
-      "delete": "O'chirish",
-      "confirmDelete": "Bu elementni o'chirmoqchimisiz?",
       "welcome": "Xush kelibsiz! 👋",
       "description": "Bu foydalanuvchilar ro'yxatini boshqarish uchun oddiy va qulay dastur. Kerakli odamlarni qo'shing, tahrirlang va bir necha bosishda qidiring.",
       "goToList": "Ro'yxatga o'tish",
@@ -103,25 +128,46 @@ const resources = {
       "save": "Saqlash",
       "cancel": "Bekor qilish",
       "notFound": "Sahifa Topilmadi",
+      "notFoundDescription": "Ko'rinadi, bu sahifa mavjud emas.",
       "backToHome": "Uyga qaytish",
-      "sidebar": "Yon panel"
+      "backToList": "Ro'yxatga qaytish",
+      "sidebarHome": "Bosh sahifa",
+      "sidebarUsers": "Foydalanuvchilar",
+      "sidebarAdd": "Foydalanuvchi Qo'shish",
+      "logout": "Chiqish",
+      "searchPlaceholder": "Ro'yxatdan qidiring...",
+      "newUser": "Yangi foydalanuvchi",
+      "editProfile": "Profilni tahrirlash",
+      "subjectName": "Fan nomi",
+      "teacherResponsible": "O'qituvchi / Mas'ul",
+      "subjectType": "Turi",
+      "schoolType": "Maktab",
+      "extracurricularType": "Darsdan tashqari",
+      "additionalType": "Qo'shimcha",
+      "addSubject": "Fan qo'shish",
+      "editSubject": "Fan tahrirlash",
+      "itemsCount": "Jami fanlar: {{count}}",
+      "deleteConfirmation": "Bu elementni o'chirmoqchimisiz?",
+      "actions": "Harakatlar",
+      "noUsers": "Foydalanuvchilar topilmadi.",
+      "loading": "Yuklanmoqda...",
+      "darkMode": "Qorong'u rejim",
+      "lightMode": "Yorug' rejim",
+      "theme": "Mavzu",
+      "loadError": "Foydalanuvchilarni yuklashda xatolik yuz berdi. Keshlangan ma'lumotlar ko'rsatilmoqda.",
+      "deleteError": "Foydalanuvchini o'chirishda xatolik yuz berdi. Qayta urinib ko'ring.",
     }
   }
 };
 
 i18n
-  // pass the i18n instance to react-i18next.
   .use(initReactI18next)
-  // init i18next
-  // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     resources,
-    lng: 'ru', // language to use, more info here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
-    // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
-    // if you're using a language detector, do not define the lng option
-
+    lng: localStorage.getItem('appLanguage') || 'ru',
+    fallbackLng: 'ru',
     interpolation: {
-      escapeValue: false // react already does escaping
+      escapeValue: false
     }
   });
 

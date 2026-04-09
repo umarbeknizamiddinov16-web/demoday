@@ -1,36 +1,27 @@
-import React from 'react';
+﻿import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Sidebar({ onLogout }) {
+  const { t } = useTranslation();
+
   return (
-    <div className="sidebar" style={{ width: '250px', height: '100vh', background: '#f8f9fa', padding: '20px', borderRight: '1px solid #ddd' }}>
-      <h1>Admin Panel</h1>
+    <div className="sidebar">
+      <h1>{t("adminPanel")}</h1>
       <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
         <NavLink to="/admin" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-          🏠 Home
+          🏠 {t("sidebarHome")}
         </NavLink>
         <NavLink to="/users" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-          👥 Users
+          👥 {t("sidebarUsers")}
         </NavLink>
         <NavLink to="/add" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-          ➕ Add User
+          ➕ {t("sidebarAdd")}
         </NavLink>
       </nav>
       {onLogout && (
-        <button
-          onClick={onLogout}
-          style={{
-            marginTop: '24px',
-            width: '100%',
-            padding: '10px 14px',
-            borderRadius: '10px',
-            border: 'none',
-            background: '#ef4444',
-            color: '#fff',
-            cursor: 'pointer',
-          }}
-        >
-          Выйти
+        <button onClick={onLogout} className="btn btn-primary" style={{ marginTop: '24px' }}>
+          {t("logout")}
         </button>
       )}
     </div>
