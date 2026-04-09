@@ -19,6 +19,26 @@
       "name": "Umar",
       "email": "umar@gmail.com",
       "id": "GWuoX46kHdE"
+    },
+    {
+      "name": "Lina",
+      "email": "lina@example.com",
+      "id": "s8pK1U3xD5q"
+    },
+    {
+      "name": "Mikhail",
+      "email": "mikhail@example.com",
+      "id": "bZ9Nc7LpQw2"
+    },
+    {
+      "name": "Sofia",
+      "email": "sofia@example.com",
+      "id": "d7TrF6VmKy4"
+    },
+    {
+      "name": "Daniel",
+      "email": "daniel@example.com",
+      "id": "x0GzA1FhWq8"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

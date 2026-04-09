@@ -7,6 +7,7 @@ import UserDetail from "./pages/UserDetail.jsx";
 import UserForm from "./pages/UserForm.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Sidebar from "./pages/Sidebar.jsx";
+import LanguageSwitcher from "./LanguageSwitcher.jsx";
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(
@@ -25,6 +26,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <LanguageSwitcher />
       <div style={{ display: "flex" }}>
         {loggedIn && <Sidebar onLogout={handleLogout} />}
         <div style={{ flex: 1, padding: "20px" }}>

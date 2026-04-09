@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ItemForm from "./ItemForm.jsx";
+import { useTranslation } from "react-i18next";
 
 const initialItems = [
   { id: 1, name: "Математика", teacher: "Иванов", type: "Школьный" },
@@ -7,6 +8,7 @@ const initialItems = [
 ];
 
 export default function AdminPanel() {
+  const { t } = useTranslation();
   const [items, setItems] = useState(initialItems);
   const [editingItem, setEditingItem] = useState(null);
 
@@ -21,14 +23,14 @@ export default function AdminPanel() {
   };
 
   const deleteItem = (id) => {
-    if (window.confirm("Удалить этот предмет?")) {
+    if (window.confirm(t("confirmDelete"))) {
       setItems(items.filter(i => i.id !== id));
     }
   };
 
   return (
     <div style={{ padding: 20 }}>
-      <h2>Панель администратора</h2>
+      <h2>{t("adminPanel")}</h2>
       <ItemForm
         key={editingItem ? editingItem.id : "new"}
         onSubmit={editingItem ? updateItem : addItem}
@@ -38,10 +40,10 @@ export default function AdminPanel() {
       <table border="1" cellPadding="10" style={{ marginTop: 20 }}>
         <thead>
           <tr>
-            <th>Название</th>
-            <th>Учитель/Ответственный</th>
-            <th>Тип</th>
-            <th>Действия</th>
+            <th>{t("name")}</th>
+            <th>{t("teacher")}</th>
+            <th>{t("type")}</th>
+            <th>{t("actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -51,8 +53,8 @@ export default function AdminPanel() {
               <td>{i.teacher}</td>
               <td>{i.type}</td>
               <td>
-                <button onClick={() => setEditingItem(i)}>Редактировать</button>{" "}
-                <button onClick={() => deleteItem(i.id)}>Удалить</button>
+                <button onClick={() => setEditingItem(i)}>{t("edit")}</button>{" "}
+                <button onClick={() => deleteItem(i.id)}>{t("delete")}</button>
               </td>
             </tr>
           ))}

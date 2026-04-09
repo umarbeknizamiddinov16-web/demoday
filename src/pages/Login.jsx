@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ADMIN_EMAIL = "admin@example.com";
 
 export default function Login({ onLogin }) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ export default function Login({ onLogin }) {
       return;
     }
 
-    setError("Неверный email. Попробуйте admin@example.com");
+    setError(t("invalidEmail"));
   };
 
   return (
@@ -41,14 +43,14 @@ export default function Login({ onLogin }) {
           boxShadow: "0 16px 40px rgba(15, 23, 42, 0.08)",
         }}
       >
-        <h1 style={{ marginBottom: "16px" }}>Вход в админ-панель</h1>
+        <h1 style={{ marginBottom: "16px" }}>{t("loginTitle")}</h1>
         <p style={{ marginBottom: "24px", color: "#4b5563" }}>
-          Введите правильный email, чтобы получить доступ к панели администратора.
+          {t("loginDescription")}
         </p>
 
         <form onSubmit={handleSubmit}>
           <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
-            Email
+            {t("email")}
           </label>
           <input
             type="email"
@@ -86,7 +88,7 @@ export default function Login({ onLogin }) {
               fontWeight: 600,
             }}
           >
-            Войти
+            {t("login")}
           </button>
         </form>
       </div>
