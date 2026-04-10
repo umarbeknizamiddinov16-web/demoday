@@ -1,44 +1,58 @@
 {
   "users": [
     {
-      "name": "Ali ",
+      "id": 1, "name": "Admin", "email": "admin@example.com", "role": "admin"
+    },
+    {
+      "id": 2, "name": "User", "email": "user@example.com", "role": "viewer"
+    },
+    {
+      "name": "Ali",
       "email": "ali@gmail.com",
-      "id": "k_sNUhk5W-s"
+      "id": "k_sNUhk5W-s",
+      "role": "admin"
     },
     {
       "name": "John",
       "email": "john@gmail.com",
-      "id": "PipU2zXV3w8"
+      "id": "PipU2zXV3w8",
+      "role": "editor"
     },
     {
       "name": "Jovoxir",
       "email": "jovoxir@gmail.com",
-      "id": "rVA2VphISPs"
+      "id": "rVA2VphISPs",
+      "role": "viewer"
     },
     {
       "name": "Umar",
       "email": "umar@gmail.com",
-      "id": "GWuoX46kHdE"
+      "id": "GWuoX46kHdE",
+      "role": "editor"
     },
     {
       "name": "Lina",
       "email": "lina@example.com",
-      "id": "s8pK1U3xD5q"
+      "id": "s8pK1U3xD5q",
+      "role": "viewer"
     },
     {
       "name": "Mikhail",
       "email": "mikhail@example.com",
-      "id": "bZ9Nc7LpQw2"
+      "id": "bZ9Nc7LpQw2",
+      "role": "editor"
     },
     {
       "name": "Sofia",
       "email": "sofia@example.com",
-      "id": "d7TrF6VmKy4"
+      "id": "d7TrF6VmKy4",
+      "role": "viewer"
     },
     {
       "name": "Daniel",
       "email": "daniel@example.com",
-      "id": "x0GzA1FhWq8"
+      "id": "x0GzA1FhWq8",
+      "role": "admin"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

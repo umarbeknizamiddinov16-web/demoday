@@ -1,33 +1,46 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useRole } from "../RoleContext";
 
 const ADMIN_EMAIL = "admin@example.com";
 const MOCK_2FA_CODE = "123456";
 
 export default function Login({ onLogin }) {
   const { t } = useTranslation();
-  const [email, setEmail] = useState("");
+  const { setRole } = useRole();
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [code, setCode] = useState("");
-  const [step, setStep] = useState("email");
+  const [step, setStep] = useState("select");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleEmailSubmit = (event) => {
-    event.preventDefault();
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:3002/users");
+        const data = await response.json();
+        setUsers(Array.isArray(data) ? data : []);
+      } catch (error) {
+        const saved = JSON.parse(localStorage.getItem("users") || "[]");
+        setUsers(saved);
+      }
+    };
+    loadUsers();
+  }, []);
 
-    if (email.trim().toLowerCase() === ADMIN_EMAIL) {
-      setStep("code");
-      setError("");
-    } else {
-      setError(t("invalidEmail"));
-    }
+  const handleSelectUser = (user) => {
+    setSelectedUser(user);
+    setStep("code");
+    setError("");
   };
 
   const handleCodeSubmit = (event) => {
     event.preventDefault();
 
-    if (code === MOCK_2FA_CODE) {
+    if (code === MOCK_2FA_CODE && selectedUser) {
+      setRole(selectedUser.role, selectedUser);
       onLogin?.();
       navigate("/admin");
     } else {
@@ -49,7 +62,7 @@ export default function Login({ onLogin }) {
       <div
         style={{
           width: "100%",
-          maxWidth: "480px",
+          maxWidth: "520px",
           padding: "32px",
           borderRadius: "24px",
           background: "#ffffff",
@@ -58,47 +71,108 @@ export default function Login({ onLogin }) {
       >
         <h1 style={{ marginBottom: "16px" }}>{t("loginTitle")}</h1>
         <p style={{ marginBottom: "24px", color: "#4b5563" }}>
-          {step === "email" ? t("loginDescription") : t("enterCode")}
+          {step === "select"
+            ? "Выберите пользователя для входа"
+            : "Введите код подтверждения"}
         </p>
 
-        {step === "email" ? (
-          <form onSubmit={handleEmailSubmit}>
-            <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
-              {t("email")}
-            </label>
-            <input
-              type="email"
-              placeholder={t("placeholderEmail")}
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-                setError("");
-              }}
+        {step === "select" ? (
+          <div>
+            <div
               style={{
-                width: "100%",
-                padding: "12px 14px",
-                borderRadius: "12px",
-                border: "1px solid #d1d5db",
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "12px",
                 marginBottom: "16px",
-                outline: "none",
               }}
-              required
-            />
-
-            {error && (
-              <div style={{ color: "#b91c1c", marginBottom: "16px" }}>{error}</div>
-            )}
-
-            <button
-              type="submit"
-              className="btn btn-primary"
-              style={{ width: "100%", padding: "12px 18px", fontWeight: 600 }}
             >
-              {t("sendCode")}
-            </button>
-          </form>
+              {users.map((user) => (
+                <button
+                  key={user.id}
+                  onClick={() => handleSelectUser(user)}
+                  style={{
+                    padding: "16px",
+                    borderRadius: "12px",
+                    border: "2px solid #e5e7eb",
+                    background: "#ffffff",
+                    cursor: "pointer",
+                    transition: "all 0.3s",
+                    textAlign: "left",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = "#3b82f6";
+                    e.currentTarget.style.background = "#f0f9ff";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = "#e5e7eb";
+                    e.currentTarget.style.background = "#ffffff";
+                  }}
+                >
+                  <div style={{ fontWeight: 600, marginBottom: "4px" }}>
+                    {user.name}
+                  </div>
+                  <div style={{ fontSize: "12px", color: "#6b7280" }}>
+                    {user.email}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      marginTop: "6px",
+                      padding: "4px 8px",
+                      background:
+                        user.role === "admin"
+                          ? "#fee2e2"
+                          : user.role === "editor"
+                          ? "#fef3c7"
+                          : "#e0f2fe",
+                      color:
+                        user.role === "admin"
+                          ? "#991b1b"
+                          : user.role === "editor"
+                          ? "#92400e"
+                          : "#0c4a6e",
+                      borderRadius: "4px",
+                      display: "inline-block",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {user.role === "admin"
+                      ? "Администратор"
+                      : user.role === "editor"
+                      ? "Редактор"
+                      : "Просмотр"}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
         ) : (
           <form onSubmit={handleCodeSubmit}>
+            <div
+              style={{
+                padding: "16px",
+                background: "#f3f4f6",
+                borderRadius: "12px",
+                marginBottom: "16px",
+              }}
+            >
+              <div style={{ fontSize: "14px", color: "#6b7280" }}>
+                Вход как:
+              </div>
+              <div style={{ fontWeight: 600, fontSize: "16px" }}>
+                {selectedUser?.name}
+              </div>
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "#6b7280",
+                  marginTop: "4px",
+                }}
+              >
+                {selectedUser?.email}
+              </div>
+            </div>
+
             <label style={{ display: "block", marginBottom: "8px", fontWeight: 600 }}>
               {t("verificationCode")}
             </label>
@@ -119,6 +193,7 @@ export default function Login({ onLogin }) {
                 outline: "none",
               }}
               required
+              autoFocus
             />
 
             {error && (
@@ -134,8 +209,21 @@ export default function Login({ onLogin }) {
             </button>
             <button
               type="button"
-              onClick={() => setStep("email")}
-              style={{ width: "100%", marginTop: "12px", padding: "12px 18px", background: "none", border: "1px solid #d1d5db", borderRadius: "12px", cursor: "pointer" }}
+              onClick={() => {
+                setStep("select");
+                setCode("");
+                setError("");
+                setSelectedUser(null);
+              }}
+              style={{
+                width: "100%",
+                marginTop: "12px",
+                padding: "12px 18px",
+                background: "none",
+                border: "1px solid #d1d5db",
+                borderRadius: "12px",
+                cursor: "pointer",
+              }}
             >
               {t("back")}
             </button>
